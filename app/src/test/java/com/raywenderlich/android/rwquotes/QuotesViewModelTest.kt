@@ -40,7 +40,12 @@ import androidx.lifecycle.Observer
 import com.raywenderlich.android.rwquotes.data.Quote
 import com.raywenderlich.android.rwquotes.data.QuotesRepositoryImpl
 import com.raywenderlich.android.rwquotes.ui.viewmodel.QuotesViewModel
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.ExperimentalCoroutinesApi
+import kotlinx.coroutines.test.TestCoroutineDispatcher
+import kotlinx.coroutines.test.resetMain
+import kotlinx.coroutines.test.setMain
+import org.junit.After
 import org.junit.Assert.*
 import org.junit.Before
 import org.junit.Rule
@@ -69,16 +74,24 @@ class QuotesViewModelTest {
 
   private lateinit var isLoadingLiveData: LiveData<Boolean>
 
+  val dispatcher = TestCoroutineDispatcher()
+
   /**
    * Setup values before init tests
    *
    */
   @Before
   fun setup() {
+    Dispatchers.setMain(dispatcher)
     MockitoAnnotations.initMocks(this)
 
     viewModel = spy(QuotesViewModel(repositoryImpl))
     isLoadingLiveData = viewModel.dataLoading
+  }
+
+  @After
+  fun tearDown() {
+    Dispatchers.resetMain()
   }
 
   /**
