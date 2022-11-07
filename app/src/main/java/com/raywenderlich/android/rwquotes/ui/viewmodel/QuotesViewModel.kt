@@ -40,7 +40,6 @@ import com.raywenderlich.android.rwquotes.data.QuotesRepository
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 
-
 /**
  * Created by Enzo Lizama Paredes on 7/24/20.
  * Contact: lizama.enzo@gmail.com

@@ -95,6 +95,12 @@ android {
     unitTests.returnDefaultValues = true
   }
 
+  lint {
+    sarifReport true
+    // optional, otherwise build/reports/lint-results-debug.sarif
+    sarifOutput file("lint.sarif")
+  }
+
 }
 
 dependencies {
