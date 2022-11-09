@@ -45,7 +45,7 @@ import kotlinx.coroutines.launch
  * Contact: lizama.enzo@gmail.com
  */
 
-class QuotesViewModel(private val repository: QuotesRepository) : ViewModel( {
+class QuotesViewModel(private val repository: QuotesRepository) : ViewModel() {
 
   private val _dataLoading = MutableLiveData<Boolean>()
   val dataLoading: LiveData<Boolean> = _dataLoading

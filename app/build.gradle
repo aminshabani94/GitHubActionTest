@@ -101,6 +101,11 @@ android {
     sarifOutput file("lint.sarif")
   }
 
+  lintOptions {
+    fatal 'MY_LINT_CHECK_ID'
+  }
+
+
 }
 
 dependencies {
