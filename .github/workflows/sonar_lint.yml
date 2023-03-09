@@ -2,8 +2,7 @@ name: Android Lint
 
 on:
   push:
-    branch:
-      - master
+    branches: [ master ]
 
 jobs:
   android-lint:
