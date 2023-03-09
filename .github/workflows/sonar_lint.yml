@@ -2,9 +2,12 @@ name: Android Lint
 
 on:
   pull_request:
+    type:
+      - closed
 
 jobs:
   android-lint:
+    if: ${{ github.event.pull_request.mreged }}
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
