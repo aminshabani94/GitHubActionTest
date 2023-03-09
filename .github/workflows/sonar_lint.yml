@@ -7,7 +7,7 @@ on:
 
 jobs:
   android-lint:
-    if: ${{ github.event.pull_request.mreged }}
+    if: github.event.pull_request.mreged == true
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
