@@ -1,0 +1,1425 @@
+{
+    "$schema" : "https://raw.githubusercontent.com/oasis-tcs/sarif-spec/master/Schemata/sarif-schema-2.1.0.json",
+    "version" : "2.1.0",
+    "runs" : [
+        {
+            "tool": {
+                "driver": {
+                    "name": "Android Lint",
+                    "fullName": "Android Lint (in gradle)",
+                    "version": "7.2.2",
+                    "semanticVersion": "7.2.2",
+                    "organization": "Google",
+                    "informationUri": "https://developer.android.com/studio/write/lint",
+                    "fullDescription": {
+                        "text": "Static analysis originally for Android source code but now performing general analysis"
+                    },
+                    "language": "en-US",
+                    "rules": [
+                        {
+                            "id": "Autofill",
+                            "shortDescription": {
+                                "text": "Use Autofill"
+                            },
+                            "fullDescription": {
+                                "text": "Specify an autofillHints attribute when targeting SDK version 26 or higher or explicitly specify that the view is not important for autofill. Your app can help an autofill service classify the data correctly by providing the meaning of each view that could be autofillable, such as views representing usernames, passwords, credit card fields, email addresses, etc.\n\nThe hints can have any value, but it is recommended to use predefined values like 'username' for a username or 'creditCardNumber' for a credit card number. For a list of all predefined autofill hint constants, see the AUTOFILL_HINT_ constants in the View reference at https://developer.android.com/reference/android/view/View.html.\n\nYou can mark a view unimportant for autofill by specifying an importantForAutofill attribute on that view or a parent view. See https://developer.android.com/reference/android/view/View.html#setImportantForAutofill(int).",
+                                "markdown": "Specify an `autofillHints` attribute when targeting SDK version 26 or higher or explicitly specify that the view is not important for autofill. Your app can help an autofill service classify the data correctly by providing the meaning of each view that could be autofillable, such as views representing usernames, passwords, credit card fields, email addresses, etc.\n\nThe hints can have any value, but it is recommended to use predefined values like 'username' for a username or 'creditCardNumber' for a credit card number. For a list of all predefined autofill hint constants, see the `AUTOFILL_HINT_` constants in the `View` reference at https://developer.android.com/reference/android/view/View.html.\n\nYou can mark a view unimportant for autofill by specifying an `importantForAutofill` attribute on that view or a parent view. See https://developer.android.com/reference/android/view/View.html#setImportantForAutofill(int)."
+                            },
+                            "defaultConfiguration": {
+                                "level": "warning",
+                                "rank": 80
+                            },
+                            "properties": {
+                                "tags": [
+                                    "Usability"
+                                ]
+                            }
+                        },
+                        {
+                            "id": "ContentDescription",
+                            "shortDescription": {
+                                "text": "Image without contentDescription",
+                                "markdown": "Image without `contentDescription`"
+                            },
+                            "fullDescription": {
+                                "text": "Non-textual widgets like ImageViews and ImageButtons should use the contentDescription attribute to specify a textual description of the widget such that screen readers and other accessibility tools can adequately describe the user interface.\n\nNote that elements in application screens that are purely decorative and do not provide any content or enable a user action should not have accessibility content descriptions. In this case, just suppress the lint warning with a tools:ignore=\"ContentDescription\" attribute.\n\nNote that for text fields, you should not set both the hint and the contentDescription attributes since the hint will never be shown. Just set the hint.",
+                                "markdown": "Non-textual widgets like ImageViews and ImageButtons should use the `contentDescription` attribute to specify a textual description of the widget such that screen readers and other accessibility tools can adequately describe the user interface.\n\nNote that elements in application screens that are purely decorative and do not provide any content or enable a user action should not have accessibility content descriptions. In this case, just suppress the lint warning with a tools:ignore=\"ContentDescription\" attribute.\n\nNote that for text fields, you should not set both the `hint` and the `contentDescription` attributes since the hint will never be shown. Just set the `hint`."
+                            },
+                            "defaultConfiguration": {
+                                "level": "warning",
+                                "rank": 80
+                            },
+                            "properties": {
+                                "tags": [
+                                    "Accessibility"
+                                ]
+                            }
+                        },
+                        {
+                            "id": "DataExtractionRules",
+                            "shortDescription": {
+                                "text": "Missing data extraction rules"
+                            },
+                            "fullDescription": {
+                                "text": "Before Android 12, the attributes android:allowBackup and android:fullBackupContent were used to configure all forms of backup, including cloud backups, device-to-device transfers and adb backup.\n\nIn Android 12 and higher, these attributes have been deprecated and will only apply to cloud backups. You should instead use the attribute android:dataExtractionRules, specifying an @xml resource that configures which files to back up, for cloud backups and for device-to-device transfers, separately. If your minSdkVersion supports older versions, you'll still want to specify an android:fullBackupContent resource if the default behavior is not right for your app.",
+                                "markdown": "Before Android 12, the attributes `android:allowBackup` and `android:fullBackupContent` were used to configure all forms of backup, including cloud backups, device-to-device transfers and adb backup.\n\nIn Android 12 and higher, these attributes have been deprecated and will only apply to cloud backups. You should instead use the attribute `android:dataExtractionRules`, specifying an `@xml` resource that configures which files to back up, for cloud backups and for device-to-device transfers, separately. If your `minSdkVersion` supports older versions, you'll still want to specify an `android:fullBackupContent` resource if the default behavior is not right for your app."
+                            },
+                            "defaultConfiguration": {
+                                "level": "warning",
+                                "rank": 80
+                            },
+                            "properties": {
+                                "tags": [
+                                    "Security"
+                                ]
+                            }
+                        },
+                        {
+                            "id": "Deprecated",
+                            "shortDescription": {
+                                "text": "Using deprecated resources"
+                            },
+                            "fullDescription": {
+                                "text": "Deprecated views, attributes and so on are deprecated because there is a better way to do something. Do it that new way. You've been warned."
+                            },
+                            "defaultConfiguration": {
+                                "level": "warning",
+                                "rank": 90
+                            },
+                            "properties": {
+                                "tags": [
+                                    "Correctness"
+                                ]
+                            }
+                        },
+                        {
+                            "id": "GradleDependency",
+                            "shortDescription": {
+                                "text": "Obsolete Gradle Dependency"
+                            },
+                            "fullDescription": {
+                                "text": "This detector looks for usages of libraries where the version you are using is not the current stable release. Using older versions is fine, and there are cases where you deliberately want to stick with an older version. However, you may simply not be aware that a more recent version is available, and that is what this lint check helps find."
+                            },
+                            "defaultConfiguration": {
+                                "level": "warning",
+                                "rank": 70
+                            },
+                            "properties": {
+                                "tags": [
+                                    "Correctness"
+                                ]
+                            }
+                        },
+                        {
+                            "id": "HardcodedText",
+                            "shortDescription": {
+                                "text": "Hardcoded text"
+                            },
+                            "fullDescription": {
+                                "text": "Hardcoding text attributes directly in layout files is bad for several reasons:\n\n* When creating configuration variations (for example for landscape or portrait) you have to repeat the actual text (and keep it up to date when making changes)\n\n* The application cannot be translated to other languages by just adding new translations for existing string resources.\n\nThere are quickfixes to automatically extract this hardcoded string into a resource lookup."
+                            },
+                            "defaultConfiguration": {
+                                "level": "warning",
+                                "rank": 60
+                            },
+                            "properties": {
+                                "tags": [
+                                    "Internationalization"
+                                ]
+                            }
+                        },
+                        {
+                            "id": "NotifyDataSetChanged",
+                            "shortDescription": {
+                                "text": "Invalidating All RecyclerView Data"
+                            },
+                            "fullDescription": {
+                                "text": "The RecyclerView adapter's onNotifyDataSetChanged method does not specify what about the data set has changed, forcing any observers to assume that all existing items and structure may no longer be valid. `LayoutManager`s will be forced to fully rebind and relayout all visible views.",
+                                "markdown": "The `RecyclerView` adapter's `onNotifyDataSetChanged` method does not specify what about the data set has changed, forcing any observers to assume that all existing items and structure may no longer be valid. `LayoutManager`s will be forced to fully rebind and relayout all visible views."
+                            },
+                            "defaultConfiguration": {
+                                "level": "warning",
+                                "rank": 30
+                            },
+                            "properties": {
+                                "tags": [
+                                    "Performance"
+                                ]
+                            }
+                        },
+                        {
+                            "id": "TextFields",
+                            "shortDescription": {
+                                "text": "Missing inputType",
+                                "markdown": "Missing `inputType`"
+                            },
+                            "fullDescription": {
+                                "text": "Providing an inputType attribute on a text field improves usability because depending on the data to be input, optimized keyboards can be shown to the user (such as just digits and parentheses for a phone number). \n\nThe lint detector also looks at the id of the view, and if the id offers a hint of the purpose of the field (for example, the id contains the phrase phone or email), then lint will also ensure that the inputType contains the corresponding type attributes.\n\nIf you really want to keep the text field generic, you can suppress this warning by setting inputType=\"text\".",
+                                "markdown": "Providing an `inputType` attribute on a text field improves usability because depending on the data to be input, optimized keyboards can be shown to the user (such as just digits and parentheses for a phone number). \n\nThe lint detector also looks at the `id` of the view, and if the id offers a hint of the purpose of the field (for example, the `id` contains the phrase `phone` or `email`), then lint will also ensure that the `inputType` contains the corresponding type attributes.\n\nIf you really want to keep the text field generic, you can suppress this warning by setting `inputType=\"text\"`."
+                            },
+                            "defaultConfiguration": {
+                                "level": "warning",
+                                "rank": 60
+                            },
+                            "properties": {
+                                "tags": [
+                                    "Usability"
+                                ]
+                            }
+                        },
+                        {
+                            "id": "UnusedResources",
+                            "shortDescription": {
+                                "text": "Unused resources"
+                            },
+                            "fullDescription": {
+                                "text": "Unused resources make applications larger and slow down builds.\n\nThe unused resource check can ignore tests. If you want to include resources that are only referenced from tests, consider packaging them in a test source set instead.\n\nYou can include test sources in the unused resource check by setting the system property lint.unused-resources.include-tests=true, and to exclude them (usually for performance reasons), use lint.unused-resources.exclude-tests=true."
+                            },
+                            "defaultConfiguration": {
+                                "level": "warning",
+                                "rank": 80
+                            },
+                            "properties": {
+                                "tags": [
+                                    "Performance"
+                                ]
+                            }
+                        },
+                        {
+                            "id": "VisibleForTests",
+                            "shortDescription": {
+                                "text": "Visible Only For Tests"
+                            },
+                            "fullDescription": {
+                                "text": "With the @VisibleForTesting annotation you can specify an otherwise= attribute which specifies the intended visibility if the method had not been made more widely visible for the tests.\n\nThis check looks for accesses from production code (e.g. not tests) where the access would not have been allowed with the intended production visibility.",
+                                "markdown": "With the `@VisibleForTesting` annotation you can specify an `otherwise=` attribute which specifies the intended visibility if the method had not been made more widely visible for the tests.\n\nThis check looks for accesses from production code (e.g. not tests) where the access would not have been allowed with the intended production visibility."
+                            },
+                            "defaultConfiguration": {
+                                "level": "warning",
+                                "rank": 70
+                            },
+                            "properties": {
+                                "tags": [
+                                    "Correctness"
+                                ]
+                            }
+                        }
+                    ]
+                }
+            },
+            "originalUriBaseIds": {
+                "%SRCROOT%": {
+                    "uri": "file:///E:/Projects/WorkProject/GitHubLibraries/Continuous-Delivery-Github-Actions-v4-1/Continuous-Delivery-Github-Actions-v4/final/"
+                }
+            },
+            "results": [
+                {
+                    "ruleId": "GradleDependency",
+                    "ruleIndex": 4,
+                    "message": {
+                        "text": "A newer version of org.jetbrains.kotlin:kotlin-stdlib-jdk8 than 1.7.10 is available: 1.7.20"
+                    },
+                    "locations": [
+                        {
+                            "physicalLocation": {
+                                "artifactLocation": {
+                                    "uriBaseId": "%SRCROOT%",
+                                    "uri": "app/build.gradle"
+                                },
+                                "region": {
+                                    "startLine": 110,
+                                    "startColumn": 18,
+                                    "endLine": 110,
+                                    "endColumn": 75,
+                                    "charOffset": 2804,
+                                    "charLength": 57,
+                                    "snippet": {
+                                        "text": "\"org.jetbrains.kotlin:kotlin-stdlib-jdk8:$kotlin_version\""
+                                    }
+                                },
+                                "contextRegion": {
+                                    "startLine": 108,
+                                    "endLine": 113,
+                                    "snippet": {
+                                        "text": "\r\n  // Kotlin\r\n  implementation \"org.jetbrains.kotlin:kotlin-stdlib-jdk8:$kotlin_version\"\r\n\r"
+                                    }
+                                }
+                            }
+                        }
+                    ],
+                    "partialFingerprints": {
+                        "sourceContext/v1": "c9d8c286f32f0303"
+                    }
+                },
+                {
+                    "ruleId": "GradleDependency",
+                    "ruleIndex": 4,
+                    "message": {
+                        "text": "A newer version of androidx.test.ext:junit than 1.1.3 is available: 1.1.4"
+                    },
+                    "locations": [
+                        {
+                            "physicalLocation": {
+                                "artifactLocation": {
+                                    "uriBaseId": "%SRCROOT%",
+                                    "uri": "app/build.gradle"
+                                },
+                                "region": {
+                                    "startLine": 146,
+                                    "startColumn": 29,
+                                    "endLine": 146,
+                                    "endColumn": 60,
+                                    "charOffset": 4538,
+                                    "charLength": 31,
+                                    "snippet": {
+                                        "text": "'androidx.test.ext:junit:1.1.3'"
+                                    }
+                                },
+                                "contextRegion": {
+                                    "startLine": 144,
+                                    "endLine": 149,
+                                    "snippet": {
+                                        "text": "  androidTestImplementation \"org.mockito:mockito-android:4.6.1\"\r\n  androidTestImplementation \"androidx.room:room-testing:2.5.0-beta01\"\r\n  androidTestImplementation 'androidx.test.ext:junit:1.1.3'\r\n  androidTestImplementation 'androidx.test.espresso:espresso-core:3.4.0'\r"
+                                    }
+                                }
+                            }
+                        }
+                    ],
+                    "fixes": [
+                        {
+                            "description": {
+                                "text": "Change to 1.1.4"
+                            },
+                            "artifactChanges": [
+                                {
+                                    "artifactLocation": {
+                                        "uriBaseId": "%SRCROOT%",
+                                        "uri": "app/build.gradle"
+                                    },
+                                    "replacements": [
+                                        {
+                                            "deletedRegion": {
+                                                "startLine": 146,
+                                                "startColumn": 54,
+                                                "charOffset": 4563,
+                                                "endLine": 146,
+                                                "endColumn": 59,
+                                                "charLength": 5
+                                            },
+                                            "insertedContent": {
+                                                "text": "1.1.4\n"
+                                            }
+                                        }
+                                    ]
+                                }
+                            ]
+                        }
+                    ],
+                    "partialFingerprints": {
+                        "sourceContext/v1": "0b40e83ce37533fa"
+                    }
+                },
+                {
+                    "ruleId": "GradleDependency",
+                    "ruleIndex": 4,
+                    "message": {
+                        "text": "A newer version of androidx.test.espresso:espresso-core than 3.4.0 is available: 3.5.0"
+                    },
+                    "locations": [
+                        {
+                            "physicalLocation": {
+                                "artifactLocation": {
+                                    "uriBaseId": "%SRCROOT%",
+                                    "uri": "app/build.gradle"
+                                },
+                                "region": {
+                                    "startLine": 147,
+                                    "startColumn": 29,
+                                    "endLine": 147,
+                                    "endColumn": 73,
+                                    "charOffset": 4599,
+                                    "charLength": 44,
+                                    "snippet": {
+                                        "text": "'androidx.test.espresso:espresso-core:3.4.0'"
+                                    }
+                                },
+                                "contextRegion": {
+                                    "startLine": 145,
+                                    "endLine": 150,
+                                    "snippet": {
+                                        "text": "  androidTestImplementation \"androidx.room:room-testing:2.5.0-beta01\"\r\n  androidTestImplementation 'androidx.test.ext:junit:1.1.3'\r\n  androidTestImplementation 'androidx.test.espresso:espresso-core:3.4.0'\r\n\r"
+                                    }
+                                }
+                            }
+                        }
+                    ],
+                    "fixes": [
+                        {
+                            "description": {
+                                "text": "Change to 3.5.0"
+                            },
+                            "artifactChanges": [
+                                {
+                                    "artifactLocation": {
+                                        "uriBaseId": "%SRCROOT%",
+                                        "uri": "app/build.gradle"
+                                    },
+                                    "replacements": [
+                                        {
+                                            "deletedRegion": {
+                                                "startLine": 147,
+                                                "startColumn": 67,
+                                                "charOffset": 4637,
+                                                "endLine": 147,
+                                                "endColumn": 72,
+                                                "charLength": 5
+                                            },
+                                            "insertedContent": {
+                                                "text": "3.5.0\n"
+                                            }
+                                        }
+                                    ]
+                                }
+                            ]
+                        }
+                    ],
+                    "partialFingerprints": {
+                        "sourceContext/v1": "8341c0cac885e40b"
+                    }
+                },
+                {
+                    "ruleId": "GradleDependency",
+                    "ruleIndex": 4,
+                    "message": {
+                        "text": "A newer version of androidx.test:core-ktx than 1.4.0 is available: 1.5.0"
+                    },
+                    "locations": [
+                        {
+                            "physicalLocation": {
+                                "artifactLocation": {
+                                    "uriBaseId": "%SRCROOT%",
+                                    "uri": "app/build.gradle"
+                                },
+                                "region": {
+                                    "startLine": 151,
+                                    "startColumn": 22,
+                                    "endLine": 151,
+                                    "endColumn": 52,
+                                    "charOffset": 4704,
+                                    "charLength": 30,
+                                    "snippet": {
+                                        "text": "\"androidx.test:core-ktx:1.4.0\""
+                                    }
+                                },
+                                "contextRegion": {
+                                    "startLine": 149,
+                                    "endLine": 154,
+                                    "snippet": {
+                                        "text": "\r\n  // AndroidX Test - JVM testing\r\n  testImplementation \"androidx.test:core-ktx:1.4.0\"\r\n  testImplementation \"androidx.test.ext:junit:1.1.3\"\r"
+                                    }
+                                }
+                            }
+                        }
+                    ],
+                    "fixes": [
+                        {
+                            "description": {
+                                "text": "Change to 1.5.0"
+                            },
+                            "artifactChanges": [
+                                {
+                                    "artifactLocation": {
+                                        "uriBaseId": "%SRCROOT%",
+                                        "uri": "app/build.gradle"
+                                    },
+                                    "replacements": [
+                                        {
+                                            "deletedRegion": {
+                                                "startLine": 151,
+                                                "startColumn": 46,
+                                                "charOffset": 4728,
+                                                "endLine": 151,
+                                                "endColumn": 51,
+                                                "charLength": 5
+                                            },
+                                            "insertedContent": {
+                                                "text": "1.5.0\n"
+                                            }
+                                        }
+                                    ]
+                                }
+                            ]
+                        }
+                    ],
+                    "partialFingerprints": {
+                        "sourceContext/v1": "67fa57413bb75b0a"
+                    }
+                },
+                {
+                    "ruleId": "GradleDependency",
+                    "ruleIndex": 4,
+                    "message": {
+                        "text": "A newer version of androidx.test.ext:junit than 1.1.3 is available: 1.1.4"
+                    },
+                    "locations": [
+                        {
+                            "physicalLocation": {
+                                "artifactLocation": {
+                                    "uriBaseId": "%SRCROOT%",
+                                    "uri": "app/build.gradle"
+                                },
+                                "region": {
+                                    "startLine": 152,
+                                    "startColumn": 22,
+                                    "endLine": 152,
+                                    "endColumn": 53,
+                                    "charOffset": 4757,
+                                    "charLength": 31,
+                                    "snippet": {
+                                        "text": "\"androidx.test.ext:junit:1.1.3\""
+                                    }
+                                },
+                                "contextRegion": {
+                                    "startLine": 150,
+                                    "endLine": 155,
+                                    "snippet": {
+                                        "text": "  // AndroidX Test - JVM testing\r\n  testImplementation \"androidx.test:core-ktx:1.4.0\"\r\n  testImplementation \"androidx.test.ext:junit:1.1.3\"\r\n\r"
+                                    }
+                                }
+                            }
+                        }
+                    ],
+                    "fixes": [
+                        {
+                            "description": {
+                                "text": "Change to 1.1.4"
+                            },
+                            "artifactChanges": [
+                                {
+                                    "artifactLocation": {
+                                        "uriBaseId": "%SRCROOT%",
+                                        "uri": "app/build.gradle"
+                                    },
+                                    "replacements": [
+                                        {
+                                            "deletedRegion": {
+                                                "startLine": 152,
+                                                "startColumn": 47,
+                                                "charOffset": 4782,
+                                                "endLine": 152,
+                                                "endColumn": 52,
+                                                "charLength": 5
+                                            },
+                                            "insertedContent": {
+                                                "text": "1.1.4\n"
+                                            }
+                                        }
+                                    ]
+                                }
+                            ]
+                        }
+                    ],
+                    "partialFingerprints": {
+                        "sourceContext/v1": "08fed4a3c9b4b2f6"
+                    }
+                },
+                {
+                    "ruleId": "GradleDependency",
+                    "ruleIndex": 4,
+                    "message": {
+                        "text": "A newer version of androidx.test.ext:junit than 1.1.2 is available: 1.1.4"
+                    },
+                    "locations": [
+                        {
+                            "physicalLocation": {
+                                "artifactLocation": {
+                                    "uriBaseId": "%SRCROOT%",
+                                    "uri": "app/build.gradle"
+                                },
+                                "region": {
+                                    "startLine": 156,
+                                    "startColumn": 29,
+                                    "endLine": 156,
+                                    "endColumn": 60,
+                                    "charOffset": 4865,
+                                    "charLength": 31,
+                                    "snippet": {
+                                        "text": "\"androidx.test.ext:junit:1.1.2\""
+                                    }
+                                },
+                                "contextRegion": {
+                                    "startLine": 154,
+                                    "endLine": 159,
+                                    "snippet": {
+                                        "text": "\r\n  // AndroidX Test - Instrumented testing\r\n  androidTestImplementation \"androidx.test.ext:junit:1.1.2\"\r\n  androidTestImplementation \"androidx.arch.core:core-testing:2.1.0\"\r"
+                                    }
+                                }
+                            }
+                        }
+                    ],
+                    "fixes": [
+                        {
+                            "description": {
+                                "text": "Change to 1.1.4"
+                            },
+                            "artifactChanges": [
+                                {
+                                    "artifactLocation": {
+                                        "uriBaseId": "%SRCROOT%",
+                                        "uri": "app/build.gradle"
+                                    },
+                                    "replacements": [
+                                        {
+                                            "deletedRegion": {
+                                                "startLine": 156,
+                                                "startColumn": 54,
+                                                "charOffset": 4890,
+                                                "endLine": 156,
+                                                "endColumn": 59,
+                                                "charLength": 5
+                                            },
+                                            "insertedContent": {
+                                                "text": "1.1.4\n"
+                                            }
+                                        }
+                                    ]
+                                }
+                            ]
+                        }
+                    ],
+                    "partialFingerprints": {
+                        "sourceContext/v1": "f537783a372f78c3"
+                    }
+                },
+                {
+                    "ruleId": "VisibleForTests",
+                    "ruleIndex": 9,
+                    "message": {
+                        "text": "This method should only be accessed from tests or within private scope"
+                    },
+                    "locations": [
+                        {
+                            "physicalLocation": {
+                                "artifactLocation": {
+                                    "uriBaseId": "%SRCROOT%",
+                                    "uri": "app/src/main/java/com/raywenderlich/android/rwquotes/data/RWQuotesDatabase.kt"
+                                },
+                                "region": {
+                                    "startLine": 65,
+                                    "startColumn": 30,
+                                    "endLine": 65,
+                                    "endColumn": 43,
+                                    "charOffset": 2797,
+                                    "charLength": 13,
+                                    "snippet": {
+                                        "text": "MIGRATION_1_2"
+                                    }
+                                },
+                                "contextRegion": {
+                                    "startLine": 63,
+                                    "endLine": 68,
+                                    "snippet": {
+                                        "text": "          INSTANCE = Room.databaseBuilder(context,\n              RWQuotesDatabase::class.java, \"rwquotes_database.db\")\n              .addMigrations(MIGRATION_1_2)\n              .addMigrations(MIGRATION_2_3)"
+                                    }
+                                }
+                            }
+                        }
+                    ],
+                    "partialFingerprints": {
+                        "sourceContext/v1": "2013311b91cf24b5"
+                    }
+                },
+                {
+                    "ruleId": "VisibleForTests",
+                    "ruleIndex": 9,
+                    "message": {
+                        "text": "This method should only be accessed from tests or within private scope"
+                    },
+                    "locations": [
+                        {
+                            "physicalLocation": {
+                                "artifactLocation": {
+                                    "uriBaseId": "%SRCROOT%",
+                                    "uri": "app/src/main/java/com/raywenderlich/android/rwquotes/data/RWQuotesDatabase.kt"
+                                },
+                                "region": {
+                                    "startLine": 66,
+                                    "startColumn": 30,
+                                    "endLine": 66,
+                                    "endColumn": 43,
+                                    "charOffset": 2841,
+                                    "charLength": 13,
+                                    "snippet": {
+                                        "text": "MIGRATION_2_3"
+                                    }
+                                },
+                                "contextRegion": {
+                                    "startLine": 64,
+                                    "endLine": 69,
+                                    "snippet": {
+                                        "text": "              RWQuotesDatabase::class.java, \"rwquotes_database.db\")\n              .addMigrations(MIGRATION_1_2)\n              .addMigrations(MIGRATION_2_3)\n              .allowMainThreadQueries()"
+                                    }
+                                }
+                            }
+                        }
+                    ],
+                    "partialFingerprints": {
+                        "sourceContext/v1": "36db4c416edd3b5e"
+                    }
+                },
+                {
+                    "ruleId": "Deprecated",
+                    "ruleIndex": 3,
+                    "message": {
+                        "text": "android:editable is deprecated: Use inputType instead",
+                        "markdown": "`android:editable` is deprecated: Use `inputType` instead"
+                    },
+                    "locations": [
+                        {
+                            "physicalLocation": {
+                                "artifactLocation": {
+                                    "uriBaseId": "%SRCROOT%",
+                                    "uri": "app/src/main/res/layout/activity_add_edit.xml"
+                                },
+                                "region": {
+                                    "startLine": 71,
+                                    "startColumn": 7,
+                                    "endLine": 71,
+                                    "endColumn": 31,
+                                    "charOffset": 3397,
+                                    "charLength": 24,
+                                    "snippet": {
+                                        "text": "android:editable=\"false\""
+                                    }
+                                },
+                                "contextRegion": {
+                                    "startLine": 69,
+                                    "endLine": 74,
+                                    "snippet": {
+                                        "text": "      android:focusable=\"true\"\n      android:hint=\"@string/date\"\n      android:editable=\"false\"\n      app:layout_constraintEnd_toEndOf=\"parent\""
+                                    }
+                                }
+                            }
+                        }
+                    ],
+                    "partialFingerprints": {
+                        "sourceContext/v1": "5bec12568c2d2508"
+                    }
+                },
+                {
+                    "ruleId": "DataExtractionRules",
+                    "ruleIndex": 2,
+                    "message": {
+                        "text": "The attribute android:allowBackup is deprecated from Android 12 and higher and may be removed in future versions. Consider adding the attribute android:dataExtractionRules specifying an @xml resource which configures cloud backups and device transfers on Android 12 and higher.",
+                        "markdown": "The attribute `android:allowBackup` is deprecated from Android 12 and higher and may be removed in future versions. Consider adding the attribute `android:dataExtractionRules` specifying an `@xml` resource which configures cloud backups and device transfers on Android 12 and higher."
+                    },
+                    "locations": [
+                        {
+                            "physicalLocation": {
+                                "artifactLocation": {
+                                    "uriBaseId": "%SRCROOT%",
+                                    "uri": "app/src/main/AndroidManifest.xml"
+                                },
+                                "region": {
+                                    "startLine": 8,
+                                    "startColumn": 28,
+                                    "endLine": 8,
+                                    "endColumn": 33,
+                                    "charOffset": 300,
+                                    "charLength": 5,
+                                    "snippet": {
+                                        "text": "false"
+                                    }
+                                },
+                                "contextRegion": {
+                                    "startLine": 6,
+                                    "endLine": 11,
+                                    "snippet": {
+                                        "text": "  <application\r\n      android:name=\".RWQuoteApplication\"\r\n      android:allowBackup=\"false\"\r\n      android:icon=\"@mipmap/ic_launcher\"\r"
+                                    }
+                                }
+                            }
+                        }
+                    ],
+                    "fixes": [
+                        {
+                            "description": {
+                                "text": "Fix"
+                            },
+                            "artifactChanges": [
+                                {
+                                    "artifactLocation": {
+                                        "uriBaseId": "%SRCROOT%",
+                                        "uri": "app/src/main/AndroidManifest.xml"
+                                    },
+                                    "replacements": [
+                                        {
+                                            "deletedRegion": {
+                                                "startLine": 9,
+                                                "startColumn": 7,
+                                                "charOffset": 314
+                                            },
+                                            "insertedContent": {
+                                                "text": "android:dataExtractionRules=\"@xml/data_extraction_rules\" \n"
+                                            }
+                                        }
+                                    ]
+                                }
+                            ]
+                        }
+                    ],
+                    "partialFingerprints": {
+                        "sourceContext/v1": "083ebbe1dbfd26f5"
+                    }
+                },
+                {
+                    "ruleId": "NotifyDataSetChanged",
+                    "ruleIndex": 6,
+                    "message": {
+                        "text": "It will always be more efficient to use more specific change events if you can. Rely on notifyDataSetChanged as a last resort.",
+                        "markdown": "It will always be more efficient to use more specific change events if you can. Rely on `notifyDataSetChanged` as a last resort."
+                    },
+                    "locations": [
+                        {
+                            "physicalLocation": {
+                                "artifactLocation": {
+                                    "uriBaseId": "%SRCROOT%",
+                                    "uri": "app/src/main/java/com/raywenderlich/android/rwquotes/ui/QuoteAdapter.kt"
+                                },
+                                "region": {
+                                    "startLine": 67,
+                                    "startColumn": 5,
+                                    "endLine": 67,
+                                    "endColumn": 27,
+                                    "charOffset": 2897,
+                                    "charLength": 22,
+                                    "snippet": {
+                                        "text": "notifyDataSetChanged()"
+                                    }
+                                },
+                                "contextRegion": {
+                                    "startLine": 65,
+                                    "endLine": 70,
+                                    "snippet": {
+                                        "text": "  fun setQuotes(quotes: List<Quote>) {\n    this.quotes = quotes\n    notifyDataSetChanged()\n  }"
+                                    }
+                                }
+                            }
+                        }
+                    ],
+                    "partialFingerprints": {
+                        "sourceContext/v1": "3fb457e02b662a94"
+                    }
+                },
+                {
+                    "ruleId": "UnusedResources",
+                    "ruleIndex": 8,
+                    "message": {
+                        "text": "The resource R.drawable.ic_baseline_delete_24 appears to be unused",
+                        "markdown": "The resource `R.drawable.ic_baseline_delete_24` appears to be unused"
+                    },
+                    "locations": [
+                        {
+                            "physicalLocation": {
+                                "artifactLocation": {
+                                    "uriBaseId": "%SRCROOT%",
+                                    "uri": "app/src/main/res/drawable/ic_baseline_delete_24.xml"
+                                },
+                                "region": {
+                                    "startLine": 35,
+                                    "startColumn": 1,
+                                    "endLine": 39,
+                                    "endColumn": 10,
+                                    "charOffset": 1889,
+                                    "charLength": 362,
+                                    "snippet": {
+                                        "text": "<vector android:height=\"24dp\" android:tint=\"#FFFFFF\"\n    android:viewportHeight=\"24\" android:viewportWidth=\"24\"\n    android:width=\"24dp\" xmlns:android=\"http://schemas.android.com/apk/res/android\">\n    <path android:fillColor=\"@android:color/white\" android:pathData=\"M6,19c0,1.1 0.9,2 2,2h8c1.1,0 2,-0.9 2,-2V7H6v12zM19,4h-3.5l-1,-1h-5l-1,1H5v2h14V4z\"/>\n</vector>"
+                                    }
+                                },
+                                "contextRegion": {
+                                    "startLine": 33,
+                                    "endLine": 40,
+                                    "snippet": {
+                                        "text": "  -->\n\n<vector android:height=\"24dp\" android:tint=\"#FFFFFF\"\n    android:viewportHeight=\"24\" android:viewportWidth=\"24\"\n    android:width=\"24dp\" xmlns:android=\"http://schemas.android.com/apk/res/android\">\n    <path android:fillColor=\"@android:color/white\" android:pathData=\"M6,19c0,1.1 0.9,2 2,2h8c1.1,0 2,-0.9 2,-2V7H6v12zM19,4h-3.5l-1,-1h-5l-1,1H5v2h14V4z\"/>\n</vector>\n"
+                                    }
+                                }
+                            }
+                        }
+                    ],
+                    "fixes": [
+                    ],
+                    "partialFingerprints": {
+                        "sourceContext/v1": "7d70900b22c21c28"
+                    }
+                },
+                {
+                    "ruleId": "UnusedResources",
+                    "ruleIndex": 8,
+                    "message": {
+                        "text": "The resource R.drawable.ic_baseline_edit_24 appears to be unused",
+                        "markdown": "The resource `R.drawable.ic_baseline_edit_24` appears to be unused"
+                    },
+                    "locations": [
+                        {
+                            "physicalLocation": {
+                                "artifactLocation": {
+                                    "uriBaseId": "%SRCROOT%",
+                                    "uri": "app/src/main/res/drawable/ic_baseline_edit_24.xml"
+                                },
+                                "region": {
+                                    "startLine": 35,
+                                    "startColumn": 1,
+                                    "endLine": 39,
+                                    "endColumn": 10,
+                                    "charOffset": 1889,
+                                    "charLength": 445,
+                                    "snippet": {
+                                        "text": "<vector android:height=\"24dp\" android:tint=\"#FFFFFF\"\n    android:viewportHeight=\"24\" android:viewportWidth=\"24\"\n    android:width=\"24dp\" xmlns:android=\"http://schemas.android.com/apk/res/android\">\n    <path android:fillColor=\"@android:color/white\" android:pathData=\"M3,17.25V21h3.75L17.81,9.94l-3.75,-3.75L3,17.25zM20.71,7.04c0.39,-0.39 0.39,-1.02 0,-1.41l-2.34,-2.34c-0.39,-0.39 -1.02,-0.39 -1.41,0l-1.83,1.83 3.75,3.75 1.83,-1.83z\"/>\n</vector>"
+                                    }
+                                },
+                                "contextRegion": {
+                                    "startLine": 33,
+                                    "endLine": 40,
+                                    "snippet": {
+                                        "text": "  -->\n\n<vector android:height=\"24dp\" android:tint=\"#FFFFFF\"\n    android:viewportHeight=\"24\" android:viewportWidth=\"24\"\n    android:width=\"24dp\" xmlns:android=\"http://schemas.android.com/apk/res/android\">\n    <path android:fillColor=\"@android:color/white\" android:pathData=\"M3,17.25V21h3.75L17.81,9.94l-3.75,-3.75L3,17.25zM20.71,7.04c0.39,-0.39 0.39,-1.02 0,-1.41l-2.34,-2.34c-0.39,-0.39 -1.02,-0.39 -1.41,0l-1.83,1.83 3.75,3.75 1.83,-1.83z\"/>\n</vector>\n"
+                                    }
+                                }
+                            }
+                        }
+                    ],
+                    "fixes": [
+                    ],
+                    "partialFingerprints": {
+                        "sourceContext/v1": "ecff1789de3b72f2"
+                    }
+                },
+                {
+                    "ruleId": "UnusedResources",
+                    "ruleIndex": 8,
+                    "message": {
+                        "text": "The resource R.drawable.ic_launcher_background appears to be unused",
+                        "markdown": "The resource `R.drawable.ic_launcher_background` appears to be unused"
+                    },
+                    "locations": [
+                        {
+                            "physicalLocation": {
+                                "artifactLocation": {
+                                    "uriBaseId": "%SRCROOT%",
+                                    "uri": "app/src/main/res/drawable/ic_launcher_background.xml"
+                                },
+                                "region": {
+                                    "startLine": 2,
+                                    "startColumn": 1,
+                                    "endLine": 170,
+                                    "endColumn": 10,
+                                    "charOffset": 39,
+                                    "charLength": 4972,
+                                    "snippet": {
+                                        "text": "<vector xmlns:android=\"http://schemas.android.com/apk/res/android\"\n  android:width=\"108dp\"\n  android:height=\"108dp\"\n  android:viewportHeight=\"108\"\n  android:viewportWidth=\"108\">\n  <path\n    android:fillColor=\"#26A69A\"\n    android:pathData=\"M0,0h108v108h-108z\" />\n  <path\n    android:fillColor=\"#00000000\"\n    android:pathData=\"M9,0L9,108\"\n    android:strokeColor=\"#33FFFFFF\"\n    android:strokeWidth=\"0.8\" />\n  <path\n    android:fillColor=\"#00000000\"\n    android:pathData=\"M19,0L19,108\"\n    android:strokeColor=\"#33FFFFFF\"\n    android:strokeWidth=\"0.8\" />\n  <path\n    android:fillColor=\"#00000000\"\n    android:pathData=\"M29,0L29,108\"\n    android:strokeColor=\"#33FFFFFF\"\n    android:strokeWidth=\"0.8\" />\n  <path\n    android:fillColor=\"#00000000\"\n    android:pathData=\"M39,0L39,108\"\n    android:strokeColor=\"#33FFFFFF\"\n    android:strokeWidth=\"0.8\" />\n  <path\n    android:fillColor=\"#00000000\"\n    android:pathData=\"M49,0L49,108\"\n    android:strokeColor=\"#33FFFFFF\"\n    android:strokeWidth=\"0.8\" />\n  <path\n    android:fillColor=\"#00000000\"\n    android:pathData=\"M59,0L59,108\"\n    android:strokeColor=\"#33FFFFFF\"\n    android:strokeWidth=\"0.8\" />\n  <path\n    android:fillColor=\"#00000000\"\n    android:pathData=\"M69,0L69,108\"\n    android:strokeColor=\"#33FFFFFF\"\n    android:strokeWidth=\"0.8\" />\n  <path\n    android:fillColor=\"#00000000\"\n    android:pathData=\"M79,0L79,108\"\n    android:strokeColor=\"#33FFFFFF\"\n    android:strokeWidth=\"0.8\" />\n  <path\n    android:fillColor=\"#00000000\"\n    android:pathData=\"M89,0L89,108\"\n    android:strokeColor=\"#33FFFFFF\"\n    android:strokeWidth=\"0.8\" />\n  <path\n    android:fillColor=\"#00000000\"\n    android:pathData=\"M99,0L99,108\"\n    android:strokeColor=\"#33FFFFFF\"\n    android:strokeWidth=\"0.8\" />\n  <path\n    android:fillColor=\"#00000000\"\n    android:pathData=\"M0,9L108,9\"\n    android:strokeColor=\"#33FFFFFF\"\n    android:strokeWidth=\"0.8\" />\n  <path\n    android:fillColor=\"#00000000\"\n    android:pathData=\"M0,19L108,19\"\n    android:strokeColor=\"#33FFFFFF\"\n    android:strokeWidth=\"0.8\" />\n  <path\n    android:fillColor=\"#00000000\"\n    android:pathData=\"M0,29L108,29\"\n    android:strokeColor=\"#33FFFFFF\"\n    android:strokeWidth=\"0.8\" />\n  <path\n    android:fillColor=\"#00000000\"\n    android:pathData=\"M0,39L108,39\"\n    android:strokeColor=\"#33FFFFFF\"\n    android:strokeWidth=\"0.8\" />\n  <path\n    android:fillColor=\"#00000000\"\n    android:pathData=\"M0,49L108,49\"\n    android:strokeColor=\"#33FFFFFF\"\n    android:strokeWidth=\"0.8\" />\n  <path\n    android:fillColor=\"#00000000\"\n    android:pathData=\"M0,59L108,59\"\n    android:strokeColor=\"#33FFFFFF\"\n    android:strokeWidth=\"0.8\" />\n  <path\n    android:fillColor=\"#00000000\"\n    android:pathData=\"M0,69L108,69\"\n    android:strokeColor=\"#33FFFFFF\"\n    android:strokeWidth=\"0.8\" />\n  <path\n    android:fillColor=\"#00000000\"\n    android:pathData=\"M0,79L108,79\"\n    android:strokeColor=\"#33FFFFFF\"\n    android:strokeWidth=\"0.8\" />\n  <path\n    android:fillColor=\"#00000000\"\n    android:pathData=\"M0,89L108,89\"\n    android:strokeColor=\"#33FFFFFF\"\n    android:strokeWidth=\"0.8\" />\n  <path\n    android:fillColor=\"#00000000\"\n    android:pathData=\"M0,99L108,99\"\n    android:strokeColor=\"#33FFFFFF\"\n    android:strokeWidth=\"0.8\" />\n  <path\n    android:fillColor=\"#00000000\"\n    android:pathData=\"M19,29L89,29\"\n    android:strokeColor=\"#33FFFFFF\"\n    android:strokeWidth=\"0.8\" />\n  <path\n    android:fillColor=\"#00000000\"\n    android:pathData=\"M19,39L89,39\"\n    android:strokeColor=\"#33FFFFFF\"\n    android:strokeWidth=\"0.8\" />\n  <path\n    android:fillColor=\"#00000000\"\n    android:pathData=\"M19,49L89,49\"\n    android:strokeColor=\"#33FFFFFF\"\n    android:strokeWidth=\"0.8\" />\n  <path\n    android:fillColor=\"#00000000\"\n    android:pathData=\"M19,59L89,59\"\n    android:strokeColor=\"#33FFFFFF\"\n    android:strokeWidth=\"0.8\" />\n  <path\n    android:fillColor=\"#00000000\"\n    android:pathData=\"M19,69L89,69\"\n    android:strokeColor=\"#33FFFFFF\"\n    android:strokeWidth=\"0.8\" />\n  <path\n    android:fillColor=\"#00000000\"\n    android:pathData=\"M19,79L89,79\"\n    android:strokeColor=\"#33FFFFFF\"\n    android:strokeWidth=\"0.8\" />\n  <path\n    android:fillColor=\"#00000000\"\n    android:pathData=\"M29,19L29,89\"\n    android:strokeColor=\"#33FFFFFF\"\n    android:strokeWidth=\"0.8\" />\n  <path\n    android:fillColor=\"#00000000\"\n    android:pathData=\"M39,19L39,89\"\n    android:strokeColor=\"#33FFFFFF\"\n    android:strokeWidth=\"0.8\" />\n  <path\n    android:fillColor=\"#00000000\"\n    android:pathData=\"M49,19L49,89\"\n    android:strokeColor=\"#33FFFFFF\"\n    android:strokeWidth=\"0.8\" />\n  <path\n    android:fillColor=\"#00000000\"\n    android:pathData=\"M59,19L59,89\"\n    android:strokeColor=\"#33FFFFFF\"\n    android:strokeWidth=\"0.8\" />\n  <path\n    android:fillColor=\"#00000000\"\n    android:pathData=\"M69,19L69,89\"\n    android:strokeColor=\"#33FFFFFF\"\n    android:strokeWidth=\"0.8\" />\n  <path\n    android:fillColor=\"#00000000\"\n    android:pathData=\"M79,19L79,89\"\n    android:strokeColor=\"#33FFFFFF\"\n    android:strokeWidth=\"0.8\" />\n</vector>"
+                                    }
+                                },
+                                "contextRegion": {
+                                    "startLine": 1,
+                                    "endLine": 171,
+                                    "snippet": {
+                                        "text": "<?xml version=\"1.0\" encoding=\"utf-8\"?>\n<vector xmlns:android=\"http://schemas.android.com/apk/res/android\"\n  android:width=\"108dp\"\n  android:height=\"108dp\"\n  android:viewportHeight=\"108\"\n  android:viewportWidth=\"108\">\n  <path\n    android:fillColor=\"#26A69A\"\n    android:pathData=\"M0,0h108v108h-108z\" />\n  <path\n    android:fillColor=\"#00000000\"\n    android:pathData=\"M9,0L9,108\"\n    android:strokeColor=\"#33FFFFFF\"\n    android:strokeWidth=\"0.8\" />\n  <path\n    android:fillColor=\"#00000000\"\n    android:pathData=\"M19,0L19,108\"\n    android:strokeColor=\"#33FFFFFF\"\n    android:strokeWidth=\"0.8\" />\n  <path\n    android:fillColor=\"#00000000\"\n    android:pathData=\"M29,0L29,108\"\n    android:strokeColor=\"#33FFFFFF\"\n    android:strokeWidth=\"0.8\" />\n  <path\n    android:fillColor=\"#00000000\"\n    android:pathData=\"M39,0L39,108\"\n    android:strokeColor=\"#33FFFFFF\"\n    android:strokeWidth=\"0.8\" />\n  <path\n    android:fillColor=\"#00000000\"\n    android:pathData=\"M49,0L49,108\"\n    android:strokeColor=\"#33FFFFFF\"\n    android:strokeWidth=\"0.8\" />\n  <path\n    android:fillColor=\"#00000000\"\n    android:pathData=\"M59,0L59,108\"\n    android:strokeColor=\"#33FFFFFF\"\n    android:strokeWidth=\"0.8\" />\n  <path\n    android:fillColor=\"#00000000\"\n    android:pathData=\"M69,0L69,108\"\n    android:strokeColor=\"#33FFFFFF\"\n    android:strokeWidth=\"0.8\" />\n  <path\n    android:fillColor=\"#00000000\"\n    android:pathData=\"M79,0L79,108\"\n    android:strokeColor=\"#33FFFFFF\"\n    android:strokeWidth=\"0.8\" />\n  <path\n    android:fillColor=\"#00000000\"\n    android:pathData=\"M89,0L89,108\"\n    android:strokeColor=\"#33FFFFFF\"\n    android:strokeWidth=\"0.8\" />\n  <path\n    android:fillColor=\"#00000000\"\n    android:pathData=\"M99,0L99,108\"\n    android:strokeColor=\"#33FFFFFF\"\n    android:strokeWidth=\"0.8\" />\n  <path\n    android:fillColor=\"#00000000\"\n    android:pathData=\"M0,9L108,9\"\n    android:strokeColor=\"#33FFFFFF\"\n    android:strokeWidth=\"0.8\" />\n  <path\n    android:fillColor=\"#00000000\"\n    android:pathData=\"M0,19L108,19\"\n    android:strokeColor=\"#33FFFFFF\"\n    android:strokeWidth=\"0.8\" />\n  <path\n    android:fillColor=\"#00000000\"\n    android:pathData=\"M0,29L108,29\"\n    android:strokeColor=\"#33FFFFFF\"\n    android:strokeWidth=\"0.8\" />\n  <path\n    android:fillColor=\"#00000000\"\n    android:pathData=\"M0,39L108,39\"\n    android:strokeColor=\"#33FFFFFF\"\n    android:strokeWidth=\"0.8\" />\n  <path\n    android:fillColor=\"#00000000\"\n    android:pathData=\"M0,49L108,49\"\n    android:strokeColor=\"#33FFFFFF\"\n    android:strokeWidth=\"0.8\" />\n  <path\n    android:fillColor=\"#00000000\"\n    android:pathData=\"M0,59L108,59\"\n    android:strokeColor=\"#33FFFFFF\"\n    android:strokeWidth=\"0.8\" />\n  <path\n    android:fillColor=\"#00000000\"\n    android:pathData=\"M0,69L108,69\"\n    android:strokeColor=\"#33FFFFFF\"\n    android:strokeWidth=\"0.8\" />\n  <path\n    android:fillColor=\"#00000000\"\n    android:pathData=\"M0,79L108,79\"\n    android:strokeColor=\"#33FFFFFF\"\n    android:strokeWidth=\"0.8\" />\n  <path\n    android:fillColor=\"#00000000\"\n    android:pathData=\"M0,89L108,89\"\n    android:strokeColor=\"#33FFFFFF\"\n    android:strokeWidth=\"0.8\" />\n  <path\n    android:fillColor=\"#00000000\"\n    android:pathData=\"M0,99L108,99\"\n    android:strokeColor=\"#33FFFFFF\"\n    android:strokeWidth=\"0.8\" />\n  <path\n    android:fillColor=\"#00000000\"\n    android:pathData=\"M19,29L89,29\"\n    android:strokeColor=\"#33FFFFFF\"\n    android:strokeWidth=\"0.8\" />\n  <path\n    android:fillColor=\"#00000000\"\n    android:pathData=\"M19,39L89,39\"\n    android:strokeColor=\"#33FFFFFF\"\n    android:strokeWidth=\"0.8\" />\n  <path\n    android:fillColor=\"#00000000\"\n    android:pathData=\"M19,49L89,49\"\n    android:strokeColor=\"#33FFFFFF\"\n    android:strokeWidth=\"0.8\" />\n  <path\n    android:fillColor=\"#00000000\"\n    android:pathData=\"M19,59L89,59\"\n    android:strokeColor=\"#33FFFFFF\"\n    android:strokeWidth=\"0.8\" />\n  <path\n    android:fillColor=\"#00000000\"\n    android:pathData=\"M19,69L89,69\"\n    android:strokeColor=\"#33FFFFFF\"\n    android:strokeWidth=\"0.8\" />\n  <path\n    android:fillColor=\"#00000000\"\n    android:pathData=\"M19,79L89,79\"\n    android:strokeColor=\"#33FFFFFF\"\n    android:strokeWidth=\"0.8\" />\n  <path\n    android:fillColor=\"#00000000\"\n    android:pathData=\"M29,19L29,89\"\n    android:strokeColor=\"#33FFFFFF\"\n    android:strokeWidth=\"0.8\" />\n  <path\n    android:fillColor=\"#00000000\"\n    android:pathData=\"M39,19L39,89\"\n    android:strokeColor=\"#33FFFFFF\"\n    android:strokeWidth=\"0.8\" />\n  <path\n    android:fillColor=\"#00000000\"\n    android:pathData=\"M49,19L49,89\"\n    android:strokeColor=\"#33FFFFFF\"\n    android:strokeWidth=\"0.8\" />\n  <path\n    android:fillColor=\"#00000000\"\n    android:pathData=\"M59,19L59,89\"\n    android:strokeColor=\"#33FFFFFF\"\n    android:strokeWidth=\"0.8\" />\n  <path\n    android:fillColor=\"#00000000\"\n    android:pathData=\"M69,19L69,89\"\n    android:strokeColor=\"#33FFFFFF\"\n    android:strokeWidth=\"0.8\" />\n  <path\n    android:fillColor=\"#00000000\"\n    android:pathData=\"M79,19L79,89\"\n    android:strokeColor=\"#33FFFFFF\"\n    android:strokeWidth=\"0.8\" />\n</vector>\n"
+                                    }
+                                }
+                            }
+                        }
+                    ],
+                    "fixes": [
+                    ],
+                    "partialFingerprints": {
+                        "sourceContext/v1": "43c3533fb3529616"
+                    }
+                },
+                {
+                    "ruleId": "UnusedResources",
+                    "ruleIndex": 8,
+                    "message": {
+                        "text": "The resource R.drawable.ic_launcher_foreground appears to be unused",
+                        "markdown": "The resource `R.drawable.ic_launcher_foreground` appears to be unused"
+                    },
+                    "locations": [
+                        {
+                            "physicalLocation": {
+                                "artifactLocation": {
+                                    "uriBaseId": "%SRCROOT%",
+                                    "uri": "app/src/main/res/drawable-v24/ic_launcher_foreground.xml"
+                                },
+                                "region": {
+                                    "startLine": 1,
+                                    "startColumn": 1,
+                                    "endLine": 34,
+                                    "endColumn": 10,
+                                    "charOffset": 0,
+                                    "charLength": 1711,
+                                    "snippet": {
+                                        "text": "<vector xmlns:android=\"http://schemas.android.com/apk/res/android\"\n  xmlns:aapt=\"http://schemas.android.com/aapt\"\n  android:width=\"108dp\"\n  android:height=\"108dp\"\n  android:viewportHeight=\"108\"\n  android:viewportWidth=\"108\">\n  <path\n    android:fillType=\"evenOdd\"\n    android:pathData=\"M32,64C32,64 38.39,52.99 44.13,50.95C51.37,48.37 70.14,49.57 70.14,49.57L108.26,87.69L108,109.01L75.97,107.97L32,64Z\"\n    android:strokeColor=\"#00000000\"\n    android:strokeWidth=\"1\">\n    <aapt:attr name=\"android:fillColor\">\n      <gradient\n        android:endX=\"78.5885\"\n        android:endY=\"90.9159\"\n        android:startX=\"48.7653\"\n        android:startY=\"61.0927\"\n        android:type=\"linear\">\n        <item\n          android:color=\"#44000000\"\n          android:offset=\"0.0\" />\n        <item\n          android:color=\"#00000000\"\n          android:offset=\"1.0\" />\n      </gradient>\n    </aapt:attr>\n  </path>\n  <path\n    android:fillColor=\"#FFFFFF\"\n    android:fillType=\"nonZero\"\n    android:pathData=\"M66.94,46.02L66.94,46.02C72.44,50.07 76,56.61 76,64L32,64C32,56.61 35.56,50.11 40.98,46.06L36.18,41.19C35.45,40.45 35.45,39.3 36.18,38.56C36.91,37.81 38.05,37.81 38.78,38.56L44.25,44.05C47.18,42.57 50.48,41.71 54,41.71C57.48,41.71 60.78,42.57 63.68,44.05L69.11,38.56C69.84,37.81 70.98,37.81 71.71,38.56C72.44,39.3 72.44,40.45 71.71,41.19L66.94,46.02ZM62.94,56.92C64.08,56.92 65,56.01 65,54.88C65,53.76 64.08,52.85 62.94,52.85C61.8,52.85 60.88,53.76 60.88,54.88C60.88,56.01 61.8,56.92 62.94,56.92ZM45.06,56.92C46.2,56.92 47.13,56.01 47.13,54.88C47.13,53.76 46.2,52.85 45.06,52.85C43.92,52.85 43,53.76 43,54.88C43,56.01 43.92,56.92 45.06,56.92Z\"\n    android:strokeColor=\"#00000000\"\n    android:strokeWidth=\"1\" />\n</vector>"
+                                    }
+                                },
+                                "contextRegion": {
+                                    "startLine": 1,
+                                    "endLine": 35,
+                                    "snippet": {
+                                        "text": "<vector xmlns:android=\"http://schemas.android.com/apk/res/android\"\n  xmlns:aapt=\"http://schemas.android.com/aapt\"\n  android:width=\"108dp\"\n  android:height=\"108dp\"\n  android:viewportHeight=\"108\"\n  android:viewportWidth=\"108\">\n  <path\n    android:fillType=\"evenOdd\"\n    android:pathData=\"M32,64C32,64 38.39,52.99 44.13,50.95C51.37,48.37 70.14,49.57 70.14,49.57L108.26,87.69L108,109.01L75.97,107.97L32,64Z\"\n    android:strokeColor=\"#00000000\"\n    android:strokeWidth=\"1\">\n    <aapt:attr name=\"android:fillColor\">\n      <gradient\n        android:endX=\"78.5885\"\n        android:endY=\"90.9159\"\n        android:startX=\"48.7653\"\n        android:startY=\"61.0927\"\n        android:type=\"linear\">\n        <item\n          android:color=\"#44000000\"\n          android:offset=\"0.0\" />\n        <item\n          android:color=\"#00000000\"\n          android:offset=\"1.0\" />\n      </gradient>\n    </aapt:attr>\n  </path>\n  <path\n    android:fillColor=\"#FFFFFF\"\n    android:fillType=\"nonZero\"\n    android:pathData=\"M66.94,46.02L66.94,46.02C72.44,50.07 76,56.61 76,64L32,64C32,56.61 35.56,50.11 40.98,46.06L36.18,41.19C35.45,40.45 35.45,39.3 36.18,38.56C36.91,37.81 38.05,37.81 38.78,38.56L44.25,44.05C47.18,42.57 50.48,41.71 54,41.71C57.48,41.71 60.78,42.57 63.68,44.05L69.11,38.56C69.84,37.81 70.98,37.81 71.71,38.56C72.44,39.3 72.44,40.45 71.71,41.19L66.94,46.02ZM62.94,56.92C64.08,56.92 65,56.01 65,54.88C65,53.76 64.08,52.85 62.94,52.85C61.8,52.85 60.88,53.76 60.88,54.88C60.88,56.01 61.8,56.92 62.94,56.92ZM45.06,56.92C46.2,56.92 47.13,56.01 47.13,54.88C47.13,53.76 46.2,52.85 45.06,52.85C43.92,52.85 43,53.76 43,54.88C43,56.01 43.92,56.92 45.06,56.92Z\"\n    android:strokeColor=\"#00000000\"\n    android:strokeWidth=\"1\" />\n</vector>\n"
+                                    }
+                                }
+                            }
+                        }
+                    ],
+                    "fixes": [
+                    ],
+                    "partialFingerprints": {
+                        "sourceContext/v1": "993734246bf91705"
+                    }
+                },
+                {
+                    "ruleId": "TextFields",
+                    "ruleIndex": 7,
+                    "message": {
+                        "text": "This text field does not specify an inputType",
+                        "markdown": "This text field does not specify an `inputType`"
+                    },
+                    "locations": [
+                        {
+                            "physicalLocation": {
+                                "artifactLocation": {
+                                    "uriBaseId": "%SRCROOT%",
+                                    "uri": "app/src/main/res/layout/activity_add_edit.xml"
+                                },
+                                "region": {
+                                    "startLine": 64,
+                                    "startColumn": 4,
+                                    "endLine": 64,
+                                    "endColumn": 12,
+                                    "charOffset": 3137,
+                                    "charLength": 8,
+                                    "snippet": {
+                                        "text": "EditText"
+                                    }
+                                },
+                                "contextRegion": {
+                                    "startLine": 62,
+                                    "endLine": 67,
+                                    "snippet": {
+                                        "text": "      app:layout_constraintTop_toBottomOf=\"@id/editTextQuoteText\" />\n\n  <EditText\n      android:id=\"@+id/editTextQuoteDate\""
+                                    }
+                                }
+                            }
+                        }
+                    ],
+                    "fixes": [
+                        {
+                            "description": {
+                                "text": "Set inputType"
+                            },
+                            "artifactChanges": [
+                                {
+                                    "artifactLocation": {
+                                        "uriBaseId": "%SRCROOT%",
+                                        "uri": "app/src/main/res/layout/activity_add_edit.xml"
+                                    },
+                                    "replacements": [
+                                        {
+                                            "deletedRegion": {
+                                                "startLine": 74,
+                                                "startColumn": 68,
+                                                "charOffset": 3589
+                                            },
+                                            "insertedContent": {
+                                                "text": " android:inputType=\"TODO\" \n"
+                                            }
+                                        }
+                                    ]
+                                }
+                            ]
+                        }
+                    ],
+                    "partialFingerprints": {
+                        "sourceContext/v1": "d823a480e683f52f"
+                    }
+                },
+                {
+                    "ruleId": "Autofill",
+                    "ruleIndex": 0,
+                    "message": {
+                        "text": "Missing autofillHints attribute",
+                        "markdown": "Missing `autofillHints` attribute"
+                    },
+                    "locations": [
+                        {
+                            "physicalLocation": {
+                                "artifactLocation": {
+                                    "uriBaseId": "%SRCROOT%",
+                                    "uri": "app/src/main/res/layout/activity_add_edit.xml"
+                                },
+                                "region": {
+                                    "startLine": 53,
+                                    "startColumn": 4,
+                                    "endLine": 53,
+                                    "endColumn": 12,
+                                    "charOffset": 2706,
+                                    "charLength": 8,
+                                    "snippet": {
+                                        "text": "EditText"
+                                    }
+                                },
+                                "contextRegion": {
+                                    "startLine": 51,
+                                    "endLine": 56,
+                                    "snippet": {
+                                        "text": "      app:layout_constraintTop_toBottomOf=\"@id/editTextQuoteDate\" />\n\n  <EditText\n      android:id=\"@+id/editTextQuoteAuthor\""
+                                    }
+                                }
+                            }
+                        }
+                    ],
+                    "fixes": [
+                        {
+                            "description": {
+                                "text": "Set autofillHints"
+                            },
+                            "artifactChanges": [
+                                {
+                                    "artifactLocation": {
+                                        "uriBaseId": "%SRCROOT%",
+                                        "uri": "app/src/main/res/layout/activity_add_edit.xml"
+                                    },
+                                    "replacements": [
+                                        {
+                                            "deletedRegion": {
+                                                "startLine": 58,
+                                                "startColumn": 7,
+                                                "charOffset": 2903
+                                            },
+                                            "insertedContent": {
+                                                "text": "android:autofillHints=\"\" \n"
+                                            }
+                                        }
+                                    ]
+                                }
+                            ]
+                        },
+                        {
+                            "description": {
+                                "text": "Set importantForAutofill=\"no\""
+                            },
+                            "artifactChanges": [
+                                {
+                                    "artifactLocation": {
+                                        "uriBaseId": "%SRCROOT%",
+                                        "uri": "app/src/main/res/layout/activity_add_edit.xml"
+                                    },
+                                    "replacements": [
+                                        {
+                                            "deletedRegion": {
+                                                "startLine": 59,
+                                                "startColumn": 7,
+                                                "charOffset": 2939
+                                            },
+                                            "insertedContent": {
+                                                "text": "android:importantForAutofill=\"no\" \n"
+                                            }
+                                        }
+                                    ]
+                                }
+                            ]
+                        }
+                    ],
+                    "partialFingerprints": {
+                        "sourceContext/v1": "78c6d0bb56cab299"
+                    }
+                },
+                {
+                    "ruleId": "Autofill",
+                    "ruleIndex": 0,
+                    "message": {
+                        "text": "Missing autofillHints attribute",
+                        "markdown": "Missing `autofillHints` attribute"
+                    },
+                    "locations": [
+                        {
+                            "physicalLocation": {
+                                "artifactLocation": {
+                                    "uriBaseId": "%SRCROOT%",
+                                    "uri": "app/src/main/res/layout/activity_add_edit.xml"
+                                },
+                                "region": {
+                                    "startLine": 64,
+                                    "startColumn": 4,
+                                    "endLine": 64,
+                                    "endColumn": 12,
+                                    "charOffset": 3137,
+                                    "charLength": 8,
+                                    "snippet": {
+                                        "text": "EditText"
+                                    }
+                                },
+                                "contextRegion": {
+                                    "startLine": 62,
+                                    "endLine": 67,
+                                    "snippet": {
+                                        "text": "      app:layout_constraintTop_toBottomOf=\"@id/editTextQuoteText\" />\n\n  <EditText\n      android:id=\"@+id/editTextQuoteDate\""
+                                    }
+                                }
+                            }
+                        }
+                    ],
+                    "fixes": [
+                        {
+                            "description": {
+                                "text": "Set autofillHints"
+                            },
+                            "artifactChanges": [
+                                {
+                                    "artifactLocation": {
+                                        "uriBaseId": "%SRCROOT%",
+                                        "uri": "app/src/main/res/layout/activity_add_edit.xml"
+                                    },
+                                    "replacements": [
+                                        {
+                                            "deletedRegion": {
+                                                "startLine": 71,
+                                                "startColumn": 7,
+                                                "charOffset": 3397
+                                            },
+                                            "insertedContent": {
+                                                "text": "android:autofillHints=\"\" \n"
+                                            }
+                                        }
+                                    ]
+                                }
+                            ]
+                        },
+                        {
+                            "description": {
+                                "text": "Set importantForAutofill=\"no\""
+                            },
+                            "artifactChanges": [
+                                {
+                                    "artifactLocation": {
+                                        "uriBaseId": "%SRCROOT%",
+                                        "uri": "app/src/main/res/layout/activity_add_edit.xml"
+                                    },
+                                    "replacements": [
+                                        {
+                                            "deletedRegion": {
+                                                "startLine": 74,
+                                                "startColumn": 68,
+                                                "charOffset": 3589
+                                            },
+                                            "insertedContent": {
+                                                "text": " android:importantForAutofill=\"no\" \n"
+                                            }
+                                        }
+                                    ]
+                                }
+                            ]
+                        }
+                    ],
+                    "partialFingerprints": {
+                        "sourceContext/v1": "d823a480e683f52f"
+                    }
+                },
+                {
+                    "ruleId": "Autofill",
+                    "ruleIndex": 0,
+                    "message": {
+                        "text": "Missing autofillHints attribute",
+                        "markdown": "Missing `autofillHints` attribute"
+                    },
+                    "locations": [
+                        {
+                            "physicalLocation": {
+                                "artifactLocation": {
+                                    "uriBaseId": "%SRCROOT%",
+                                    "uri": "app/src/main/res/layout/activity_add_edit.xml"
+                                },
+                                "region": {
+                                    "startLine": 76,
+                                    "startColumn": 4,
+                                    "endLine": 76,
+                                    "endColumn": 12,
+                                    "charOffset": 3597,
+                                    "charLength": 8,
+                                    "snippet": {
+                                        "text": "EditText"
+                                    }
+                                },
+                                "contextRegion": {
+                                    "startLine": 74,
+                                    "endLine": 79,
+                                    "snippet": {
+                                        "text": "      app:layout_constraintTop_toBottomOf=\"@id/editTextQuoteAuthor\" />\n\n  <EditText\n      android:id=\"@+id/editTextQuoteText\""
+                                    }
+                                }
+                            }
+                        }
+                    ],
+                    "fixes": [
+                        {
+                            "description": {
+                                "text": "Set autofillHints"
+                            },
+                            "artifactChanges": [
+                                {
+                                    "artifactLocation": {
+                                        "uriBaseId": "%SRCROOT%",
+                                        "uri": "app/src/main/res/layout/activity_add_edit.xml"
+                                    },
+                                    "replacements": [
+                                        {
+                                            "deletedRegion": {
+                                                "startLine": 81,
+                                                "startColumn": 7,
+                                                "charOffset": 3792
+                                            },
+                                            "insertedContent": {
+                                                "text": "android:autofillHints=\"\" \n"
+                                            }
+                                        }
+                                    ]
+                                }
+                            ]
+                        },
+                        {
+                            "description": {
+                                "text": "Set importantForAutofill=\"no\""
+                            },
+                            "artifactChanges": [
+                                {
+                                    "artifactLocation": {
+                                        "uriBaseId": "%SRCROOT%",
+                                        "uri": "app/src/main/res/layout/activity_add_edit.xml"
+                                    },
+                                    "replacements": [
+                                        {
+                                            "deletedRegion": {
+                                                "startLine": 82,
+                                                "startColumn": 7,
+                                                "charOffset": 3826
+                                            },
+                                            "insertedContent": {
+                                                "text": "android:importantForAutofill=\"no\" \n"
+                                            }
+                                        }
+                                    ]
+                                }
+                            ]
+                        }
+                    ],
+                    "partialFingerprints": {
+                        "sourceContext/v1": "c8d398a5604ec7d4"
+                    }
+                },
+                {
+                    "ruleId": "ContentDescription",
+                    "ruleIndex": 1,
+                    "message": {
+                        "text": "Missing contentDescription attribute on image",
+                        "markdown": "Missing `contentDescription` attribute on image"
+                    },
+                    "locations": [
+                        {
+                            "physicalLocation": {
+                                "artifactLocation": {
+                                    "uriBaseId": "%SRCROOT%",
+                                    "uri": "app/src/main/res/layout/activity_main.xml"
+                                },
+                                "region": {
+                                    "startLine": 26,
+                                    "startColumn": 4,
+                                    "endLine": 26,
+                                    "endColumn": 73,
+                                    "charOffset": 996,
+                                    "charLength": 69,
+                                    "snippet": {
+                                        "text": "com.google.android.material.floatingactionbutton.FloatingActionButton"
+                                    }
+                                },
+                                "contextRegion": {
+                                    "startLine": 24,
+                                    "endLine": 29,
+                                    "snippet": {
+                                        "text": "\n\n  <com.google.android.material.floatingactionbutton.FloatingActionButton\n      android:id=\"@+id/addQuoteFloatingButton\""
+                                    }
+                                }
+                            }
+                        }
+                    ],
+                    "fixes": [
+                        {
+                            "description": {
+                                "text": "Set contentDescription"
+                            },
+                            "artifactChanges": [
+                                {
+                                    "artifactLocation": {
+                                        "uriBaseId": "%SRCROOT%",
+                                        "uri": "app/src/main/res/layout/activity_main.xml"
+                                    },
+                                    "replacements": [
+                                        {
+                                            "deletedRegion": {
+                                                "startLine": 31,
+                                                "startColumn": 7,
+                                                "charOffset": 1255
+                                            },
+                                            "insertedContent": {
+                                                "text": "android:contentDescription=\"TODO\" \n"
+                                            }
+                                        }
+                                    ]
+                                }
+                            ]
+                        }
+                    ],
+                    "partialFingerprints": {
+                        "sourceContext/v1": "c0eb8ca14de70aed"
+                    }
+                },
+                {
+                    "ruleId": "HardcodedText",
+                    "ruleIndex": 5,
+                    "message": {
+                        "text": "Hardcoded string \"2020-12-12\", should use @string resource",
+                        "markdown": "Hardcoded string \"2020-12-12\", should use `@string` resource"
+                    },
+                    "locations": [
+                        {
+                            "physicalLocation": {
+                                "artifactLocation": {
+                                    "uriBaseId": "%SRCROOT%",
+                                    "uri": "app/src/main/res/layout/rwquote_item.xml"
+                                },
+                                "region": {
+                                    "startLine": 72,
+                                    "startColumn": 9,
+                                    "endLine": 72,
+                                    "endColumn": 34,
+                                    "charOffset": 3403,
+                                    "charLength": 25,
+                                    "snippet": {
+                                        "text": "android:text=\"2020-12-12\""
+                                    }
+                                },
+                                "contextRegion": {
+                                    "startLine": 70,
+                                    "endLine": 75,
+                                    "snippet": {
+                                        "text": "        android:layout_width=\"match_parent\"\n        android:layout_height=\"wrap_content\"\n        android:text=\"2020-12-12\"\n        android:textSize=\"16sp\""
+                                    }
+                                }
+                            }
+                        }
+                    ],
+                    "partialFingerprints": {
+                        "sourceContext/v1": "31c01e290f089378"
+                    }
+                }
+            ]
+        }
+    ]
+}
